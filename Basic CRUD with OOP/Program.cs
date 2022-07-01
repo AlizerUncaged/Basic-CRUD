@@ -57,6 +57,9 @@ namespace Basic_CRUD_with_OOP
                 Console.WriteLine($">> Press {"A".Pastel(Color.Orange)} to write a post.{Environment.NewLine}");
                 Console.WriteLine($">> New posts: {Environment.NewLine}");
 
+                if (!Posts.Any())
+                    Console.WriteLine($"\t Looks empty here, {$"try making a post by pressing {"A".Pastel(Color.Orange)}!".Pastel(Color.LightYellow)}");
+
                 var orderedPosts = Posts.OrderByDescending(x => x.DatePosted).ToList();
                 foreach (var p in orderedPosts)
                     Console.Write((orderedPosts.IndexOf(p) == selected ? ">> ".Pastel(Color.Cyan) : "   ")
@@ -111,6 +114,7 @@ namespace Basic_CRUD_with_OOP
                 Console.WriteLine($"[!] {"You're not registered yet!".Pastel(Color.LightYellow)}");
                 CurrentAccount = Models.Account.AskAccount();
                 Accounts.Add(CurrentAccount);
+                Save(Accounts);
             }
 
             Console.Clear();
