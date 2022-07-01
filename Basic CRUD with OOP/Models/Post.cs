@@ -21,13 +21,10 @@ namespace Basic_CRUD_with_OOP.Models
 
         public DateTime DatePosted { get; set; }
 
-        public IEnumerable<Comment> Comments => comments; // Fully implemented property
-                                                          // This is the same as ... Comments = { get { return comments; } }
+        public List<Comment> Comments { get; set; }
 
-        private List<Comment> comments;
-
-        public void AddComments(Comment c) => comments.Add(c);
-        public void AddComments(IEnumerable<Comment> c) => comments.AddRange(c);
+        public void AddComments(Comment c) => Comments.Add(c);
+        public void AddComments(IEnumerable<Comment> c) => Comments.AddRange(c);
 
         /// <summary>
         /// Gets the unique comments by username.
@@ -46,7 +43,7 @@ namespace Basic_CRUD_with_OOP.Models
 
         public Post(string content, string author, string title)
         {
-            comments = new List<Comment>();
+            Comments = new List<Comment>();
             Title = title;
             PostId = Utilities.Random.Global.Next();
             Content = content;
@@ -100,7 +97,7 @@ namespace Basic_CRUD_with_OOP.Models
         public override string ToString() =>
             $">> {Title.Pastel(Color.LightPink)} by [{Author.Pastel(Color.LightCyan)}]{Environment.NewLine}>> Posted on {DatePosted.ToString("dddd, dd MMMM yyyy")}:{Environment.NewLine}{Environment.NewLine}" +
             $"\t{string.Join($"{Environment.NewLine}\t", Content.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).SelectMany(x => x.SplitOnLength(80)))}{Environment.NewLine}{Environment.NewLine}" +
-            $"{(comments.Any() ? $">> Comments:{Environment.NewLine}{Environment.NewLine}{string.Join($"{Environment.NewLine}", comments.Select(x => $"{x}"))}" : ">> No comments")}";
+            $"{(Comments.Any() ? $">> Comments:{Environment.NewLine}{Environment.NewLine}{string.Join($"{Environment.NewLine}", Comments.Select(x => $"{x}"))}" : ">> No comments")}";
 
         public string ToTruncatedString() =>
             $"[{Author.Pastel(Color.LightCyan)}]: \"{Title.Truncate(16).Pastel(Color.LightPink)}\" posted on {DatePosted.ToString("dddd, dd MMMM yyyy").Pastel(Color.LightSkyBlue)}";

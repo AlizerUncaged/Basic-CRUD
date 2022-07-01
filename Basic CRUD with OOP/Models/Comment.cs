@@ -37,6 +37,11 @@ namespace Basic_CRUD_with_OOP.Models
             DateModified = DateTime.Now;
         }
 
+        public static Comment AskComment(string username)
+        {
+            Console.Write("[?] Comment: ");
+            return new Comment(username, Console.ReadLine());
+        }
 
         public override string ToString() => $"\t[{Username}] on {DateModified.ToString("dddd, dd MMMM yyyy")}:{Environment.NewLine}\t+ {string.Join($"{Environment.NewLine}\t+ ", Content.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).SelectMany(x => x.SplitOnLength(80).Select(u => u.Trim())))}";
     }

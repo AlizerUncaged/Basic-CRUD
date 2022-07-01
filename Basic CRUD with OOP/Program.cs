@@ -36,6 +36,10 @@ namespace Basic_CRUD_with_OOP
                     case ConsoleKey.Escape:
                         nonExit = false;
                         break;
+                    case ConsoleKey.C:
+                        post.AddComments(Models.Comment.AskComment(CurrentAccount.Username));
+                        Save(Accounts);
+                        break;
                     case ConsoleKey.Delete:
                         CurrentAccount.Posts.Remove(post);
                         Save(Accounts);
@@ -118,10 +122,7 @@ namespace Basic_CRUD_with_OOP
             }
 
             Console.Clear();
-            while (true)
-            {
-                var selectedPost = SearchPosts();
-            }
+            while (true) SearchPosts();
         }
 
         /// <summary>
